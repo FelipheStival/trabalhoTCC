@@ -19,19 +19,21 @@ load.packages = function(){
 #================================================================
 load.data = function(){
   
+  load.packages()
+  
   # Criando data.frame com valores aleatorios
   dados = data.frame(
-    PROD_GEN_1 = round(runif(5000,min = 4000,max = 5000)),
-    FLO_GEN_1 = round(runif(5000,min = 80,max = 90)),
-    ALT_GEN_1 = round(runif(5000,min = 100,max = 110)),
-    BP = round(runif(5000,min = 2,max = 3),1),
-    ESC = round(runif(5000,min = 3,max = 4),1),
-    PROD_GEN_2 = round(runif(5000,min = 4000,max = 5000)),
-    FLO_GEN_2 = round(runif(5000,min = 80,max = 90),1),
-    ALT_GEN_2 = round(runif(5000,min = 100,max = 110)),
-    BP_GEN_2 = round(runif(5000,min = 2,max = 3),1),
-    ESC_GEN_2 = round(runif(5000,min = 3,max = 4),1),
-    resultado = floor(runif(5000,min = 0,max = 3))
+    PROD_GEN_1 = round(runif(500,min = 4000,max = 5000)),
+    FLO_GEN_1 = round(runif(500,min = 80,max = 90)),
+    ALT_GEN_1 = round(runif(500,min = 100,max = 110)),
+    BP = round(runif(500,min = 2,max = 3),1),
+    ESC = round(runif(500,min = 3,max = 4),1),
+    PROD_GEN_2 = round(runif(500,min = 4000,max = 5000)),
+    FLO_GEN_2 = round(runif(500,min = 80,max = 90),1),
+    ALT_GEN_2 = round(runif(500,min = 100,max = 110)),
+    BP_GEN_2 = round(runif(500,min = 2,max = 3),1),
+    ESC_GEN_2 = round(runif(500,min = 3,max = 4),1),
+    resultado = floor(runif(500,min = 0,max = 3))
   )
   
   # Criando variavel previsao
@@ -54,6 +56,8 @@ load.data = function(){
 # @param dados
 #==================================================================
 load.model = function(dados, prever){
+  
+  load.packages()
   
   # Escalonando dados
   dados$resultado = factor(dados$resultado)
@@ -153,6 +157,8 @@ load.extract = function(dados){
 #==================================================================
 load.combinacao = function(GADATE){
   
+  load.packages()
+  
   # rodando algoritmo genetico 
   resultado = ga(
     "permutation",
@@ -161,6 +167,7 @@ load.combinacao = function(GADATE){
     upper = nrow(GADATE),
     maxiter = 1,
     popSize = 5,
+    pcrossover = 0.8,
     ... = GADATE
   )
   
