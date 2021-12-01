@@ -11,7 +11,7 @@ source("model.R")
 # Enable CORS Filtering
 #' @filter cors
 cors <- function(req, res) {
-  safe_domains <- c("http://localhost:8101")
+  safe_domains <- c("http://localhost:8100")
   
   if (any(grepl(pattern = paste0(safe_domains,collapse="|"), req$HTTP_REFERER,ignore.case=T))) {
     res$setHeader("Access-Control-Allow-Origin", sub("/$","",req$HTTP_REFERER)) #Have to remove last slash, for some reason
@@ -32,15 +32,13 @@ cors <- function(req, res) {
 #* Obter dados da API e rodar modelo
 #* @post /
 function(jsonDados = NULL) {
-  
   # Convertendo dados
   #dados = rjson::fromJSON(jsonDados)
   #dados = do.call(rbind.data.frame, dados)
   # Obtendo resultado modelo
   
-  
   # Criando colunas faltantes
-  colunas = c('ID_GEN','PROD_GEN','FLO_GEN','ALT_GEN','BP','ESC')
+  colunas = c('ID_GEN','PROD_GEN','FLO_GEN','ALT_GEN')
   for(coluna in colunas){
     if(coluna %in% colnames(jsonDados)){
       
